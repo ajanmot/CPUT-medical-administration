@@ -16,7 +16,7 @@ function checkUserConnection()
     $login_session = $row['id'];
 
     if (isset($login_session))
-        return (true);
+        return ($db);
     else
         return (false);
 //    if(!isset($_SESSION['login_user']))

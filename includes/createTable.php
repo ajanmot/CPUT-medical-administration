@@ -26,7 +26,7 @@ $sql_user = "CREATE TABLE `tbl_user` (
   `fName` varchar(32) NOT NULL,
   `lName` varchar(32) NOT NULL,
   `adress1` varchar(64) NOT NULL,
-  `adress2` varchar(64) NOT NULL,
+  `adress2` varchar(64),
   `postalCode` varchar(8) NOT NULL,
   `email` varchar(32) NOT NULL,
   `cellNum` varchar(10) NOT NULL,

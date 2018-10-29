@@ -11,22 +11,28 @@
    </head>
 
    <body>
-      <h1>
 	  <?php
-
-      include('includes/dbConnexion.php');
-      if (checkUserConnection())
+      if (($db = checkUserConnection()))
 			{
-			    $tmp = $_SESSION['login_user'];
-			    $result = mysqli_query($db, "select status from tbl_user where id='$tmp'");
-				echo "Welcome " . $_SESSION['login_user'];
+			    $tmp = $_SESSION['login_id'];
+			    $sql = "select * from tbl_user where id='$tmp'";
+			    if (($result = mysqli_query($db, $sql)))
+                {
+                    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                    echo "Welcome " . $_SESSION['login_user'] . " (" . $row['status'] . ")";
+                    echo "<pre>";
+                    print_r($row);
+                    echo "</pre>";
+                }
+                else
+                    die("Error fetching data: " . mysqli_error($db) . "<br>");
 			}
 			else
 			{
-				echo "Please connect to the site :  <h2><a href = \"login.php\">Login</a></h2>";
+				echo "Please connect to the site :  <a href = \"login.php\">Login</a> <br>";
 			}
 		?>
-	  <h2><a href = "logout.php">Sign Out</a></h2>
+	  <a href = "logout.php">Sign Out</a>
    </body>
 
 </html>
