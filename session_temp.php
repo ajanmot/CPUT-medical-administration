@@ -2,17 +2,18 @@
 function checkUserConnection()
 {
     session_start();
+
     include('includes/dbConnexion.php');
 
-    if(!isset($_SESSION['login_user']))
+    if(!isset($_SESSION['login_id']))
         return (false);
-    $user_check = $_SESSION['login_user'];
+    $user_check = $_SESSION['login_id'];
 
-    $ses_sql = mysqli_query($db,"select username from tbluser where username = '$user_check' ");
+    $ses_sql = mysqli_query($db,"select id from tbl_user where id = '$user_check' ");
 
     $row = mysqli_fetch_array($ses_sql, MYSQLI_ASSOC);
 
-    $login_session = $row['username'];
+    $login_session = $row['id'];
 
     if (isset($login_session))
         return (true);

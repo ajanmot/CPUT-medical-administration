@@ -1,3 +1,6 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="login.css">
+</head>
 <?php
    include('session_temp.php');
 ?>
@@ -9,8 +12,13 @@
 
    <body>
       <h1>
-	  <?php if (checkUserConnection())
+	  <?php
+
+      include('includes/dbConnexion.php');
+      if (checkUserConnection())
 			{
+			    $tmp = $_SESSION['login_user'];
+			    $result = mysqli_query($db, "select status from tbl_user where id='$tmp'");
 				echo "Welcome " . $_SESSION['login_user'];
 			}
 			else

@@ -30,7 +30,7 @@ $sql_user = "CREATE TABLE `tbl_user` (
   `postalCode` varchar(8) NOT NULL,
   `email` varchar(32) NOT NULL,
   `cellNum` varchar(10) NOT NULL,
-  `password` varchar(12) NOT NULL,
+  `password` varchar(33) NOT NULL,
   `userImage` text NOT NULL,
   `status` ENUM('user', 'admin', 'matron') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1";
@@ -67,7 +67,7 @@ $sql_patient = "CREATE TABLE `tbl_patient` (
   `fName` varchar(32) NOT NULL,
   `lName` varchar(32) NOT NULL,
   `roomNo` varchar(32) NOT NULL,
-  `password` varchar(12) NOT NULL,
+  `password` varchar(33) NOT NULL,
   `nextOfKinID` int(11) NOT NULL,
   `address1` varchar(64) NOT NULL,
   `address2` varchar(64) NOT NULL,

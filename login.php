@@ -8,19 +8,30 @@
     <form action="login.php" method="POST" class="form login">
 
       <div class="form__field">
-        <label for="login__username"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Username</span></label>
-        <input id="login__username" type="text" name="username" class="form__input" placeholder="Username" value="<?php if (isset($_POST['username']))echo $_POST['username'];?>"required>
+        <label for="login__first__name"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">First Name</span></label>
+        <input id="login__first__name" type="text" name="firstName" class="form__input" placeholder="First Name" value="<?php if (isset($_POST['firstName']))echo $_POST['firstName'];?>"required>
       </div>
+
+        <div class="form__field">
+            <label for="login__last__name"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Last Name</span></label>
+            <input id="login__last__name" type="text" name="lastName" class="form__input" placeholder="Last name" value="<?php if (isset($_POST['lastName']))echo $_POST['lastName'];?>"required>
+        </div>
+
+        <div class="form__field">
+            <label for="login__email"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Email</span></label>
+            <input id="login__email" type="email" name="email" class="form__input" placeholder="Email Address" value="<?php if (isset($_POST['email']))echo $_POST['email'];?>"required>
+        </div>
 
       <div class="form__field">
         <label for="login__password"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock"></use></svg><span class="hidden">Password</span></label>
         <input id="login__password" type="password" name="password" class="form__input" placeholder="Password" required>
       </div>
 
-      <div class="form__field">
+
+        <div class="form__field">
         <input type="submit" value="Sign In">
       </div>
-
+        <p class="text--center"><?php if (isset($_SESSION['login_error'])) echo $_SESSION['login_error']?></p>
     </form>
 
     <p class="text--center">Not a member? <a href="create_account.php">Sign up now</a> <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="assets/images/icons.svg#arrow-right"></use></svg></p>
@@ -36,22 +47,22 @@
 	session_start();
 	if ($_POST)
 	{
-		$myusername = mysqli_real_escape_string($db,$_POST['username']);
-		$mypassword = mysqli_real_escape_string($db,$_POST['password']); 
-		$sql = "SELECT id FROM tbl_user WHERE username='$myusername' and password='$mypassword'";
-		$result = mysqli_query($db,_sql);
+		$myFirstName = mysqli_real_escape_string($db,$_POST['firstName']);
+		$myLastName = mysqli_real_escape_string($db,$_POST['lastName']);
+		$myEmail = mysqli_real_escape_string($db,$_POST['email']);
+		$myPassword = md5($_POST['password']);
+		$sql = "SELECT id FROM tbl_user WHERE fName='$myFirstName' and lName='$myLastName' and email='$myEmail' and password='$myPassword'";
+		$result = mysqli_query($db,$sql);
 		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 		$count = mysqli_num_rows($result);
-      
-      // If result matched $myusername and $mypassword, table row must be 1 row
-		
+
 		if($count == 1) {
-			$_SESSION['login_user'] = $myusername;
-         
+			$_SESSION['login_id'] = $row['id'];
+			$_SESSION['login_user'] = $myFirstName . " " . $myLastName;
 			header("location: index.php");
 		}
 		else {
-			$error = "Your Login Name or Password is invalid";
+			$_SESSION['login_error'] = "Your Login Name or Password is invalid";
 		}
 	}
 ?>
