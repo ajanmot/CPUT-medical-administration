@@ -22,17 +22,17 @@ if($val_user !== FALSE)
 }
 
 $sql_user = "CREATE TABLE `tbl_user` (
-  `id` int(11) NOT NULL,
-  `fName` varchar(32) NOT NULL,
-  `lName` varchar(32) NOT NULL,
-  `adress1` varchar(64) NOT NULL,
-  `adress2` varchar(64),
-  `postalCode` varchar(8) NOT NULL,
-  `email` varchar(32) NOT NULL,
-  `cellNum` varchar(10) NOT NULL,
-  `password` varchar(33) NOT NULL,
-  `userImage` text NOT NULL,
-  `status` ENUM('user', 'admin', 'matron') NOT NULL
+`id` int(11) NOT NULL,
+`fName` varchar(32) NOT NULL,
+`lName` varchar(32) NOT NULL,
+`adress1` varchar(64) NOT NULL,
+`adress2` varchar(64),
+`postalCode` varchar(8) NOT NULL,
+`email` varchar(32) NOT NULL,
+`cellNum` varchar(10) NOT NULL,
+`password` varchar(33) NOT NULL,
+`userImage` text NOT NULL,
+`status` ENUM('user', 'admin', 'matron') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1";
 
 
@@ -43,7 +43,7 @@ if (mysqli_query($db, $sql_user)) {
 }
 
 $sql_user = "ALTER TABLE `tbl_user`
-  ADD PRIMARY KEY (`id`);";
+ADD PRIMARY KEY (`id`);";
 
 
 if (mysqli_query($db, $sql_user)) {
@@ -53,7 +53,7 @@ if (mysqli_query($db, $sql_user)) {
 }
 
 $sql_user = "ALTER TABLE `tbl_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
 
 
 if (mysqli_query($db, $sql_user)) {
@@ -63,18 +63,18 @@ if (mysqli_query($db, $sql_user)) {
 }
 
 $sql_patient = "CREATE TABLE `tbl_patient` (
-  `id` int(11) NOT NULL,
-  `fName` varchar(32) NOT NULL,
-  `lName` varchar(32) NOT NULL,
-  `roomNo` varchar(32) NOT NULL,
-  `password` varchar(33) NOT NULL,
-  `nextOfKinID` int(11) NOT NULL,
-  `address1` varchar(64) NOT NULL,
-  `address2` varchar(64) NOT NULL,
-  `postalCode` varchar(32) NOT NULL,
-  `gradeClasification` ENUM('A', 'B', 'C') NOT NULL,
-  `prescript` varchar(32) NOT NULL,
-  `patientImage` text NOT NULL
+`id` int(11) NOT NULL,
+`fName` varchar(32) NOT NULL,
+`lName` varchar(32) NOT NULL,
+`roomNo` varchar(32) NOT NULL,
+`password` varchar(33) NOT NULL,
+`nextOfKinID` int(11) NOT NULL,
+`address1` varchar(64) NOT NULL,
+`address2` varchar(64) NOT NULL,
+`postalCode` varchar(32) NOT NULL,
+`gradeClasification` ENUM('A', 'B', 'C') NOT NULL,
+`prescript` varchar(32) NOT NULL,
+`patientImage` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
 
 if (mysqli_query($db, $sql_patient)) {
@@ -84,8 +84,8 @@ if (mysqli_query($db, $sql_patient)) {
 }
 
 $sql_patient = "ALTER TABLE `tbl_patient`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `tbl-patient_ibfk_1` (`nextOfKinID`);";
+ADD PRIMARY KEY (`id`),
+ADD KEY `tbl-patient_ibfk_1` (`nextOfKinID`);";
 
 if (mysqli_query($db, $sql_patient)) {
     echo "Alteration of tbl_patient success full (key)<br>";
@@ -94,7 +94,7 @@ if (mysqli_query($db, $sql_patient)) {
 }
 
 $sql_patient = "ALTER TABLE `tbl_patient`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
 
 if (mysqli_query($db, $sql_patient)) {
     echo "Alteration of tbl_patient success full(primary)<br>";
@@ -103,7 +103,7 @@ if (mysqli_query($db, $sql_patient)) {
 }
 
 $sql_patient = "ALTER TABLE `tbl_patient`
-  ADD CONSTRAINT `tbl_patient_ibfk_1` FOREIGN KEY (`nextOfKinID`) REFERENCES `tbl_user` (`id`);";
+ADD CONSTRAINT `tbl_patient_ibfk_1` FOREIGN KEY (`nextOfKinID`) REFERENCES `tbl_user` (`id`);";
 
 if (mysqli_query($db, $sql_patient)) {
     echo "Alteration of tbl_patient success full (foreign)<br>";
