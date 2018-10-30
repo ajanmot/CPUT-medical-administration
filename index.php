@@ -29,10 +29,10 @@
 			}
 			else
 			{
-				echo "Please connect to the site :  <a href = \"login.php\">Login</a> <br>";
+				echo "<p class=\"text--center\">Please connect to the site :  <a href = \"login.php\">Login</a> </p>";
 			}
 		?>
-	  <a href = "logout.php">Sign Out</a>
+      <p class="text--center"><a href = "logout.php">Sign Out</a></p>
    </body>
 
 </html>
