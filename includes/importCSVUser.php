@@ -17,5 +17,5 @@
                     die("Error importing table tbl_user: " . mysqli_error($db) . "<br>");
                 }
     }
-?>
+
 

@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Hello, world!</title>
 </head>
-<body background="srcs/forest-bg.jpg" style="background-repeat: no-repeat; background-size: cover;">
+<body background="srcs/forest-bg.jpg">
 <div class="container h-100">
     <div class="row align-items-center h-100">
         <div class="col">
@@ -52,6 +52,55 @@
         <div class="col">
 
         </div>
+    </div>
+</div>
+<div class="align-items-center h-100">
+    <div class="col">
+
+    </div>
+    <div class="col-6 shadow bg-white rounded" style="padding: 160px 160px 0px 160px; opacity: 0.8">
+        <div class="row ">
+            <div class="col">
+                <img src="srcs/hands.png">
+            </div>
+            <div class="col">
+                <div">
+                    <h3 style="padding-bottom: 50px; text-align: center;" class="text-dark"> Member Login</h3>
+                    <form action="login2.php" method="POST">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" name="inputFirstName" value="<?php if (isset($_POST['inputFirstName']))echo $_POST['inputFirstName'];?>">
+                                <div class="invalid-feedback">
+                                    Please provide your first name.
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" name="inputLastName" value="<?php if (isset($_POST['inputLastName']))echo $_POST['inputLastName'];?>">
+                            </div>
+                            <div class="invalid-feedback">
+                                Please provide your last name.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email address" name="inputEmail" value="<?php if (isset($_POST['inputEmail']))echo $_POST['inputEmail'];?>">
+                            <div class="invalid-feedback">
+                                Please provide your email address.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="inputPassword">
+                            <div class="invalid-feedback">
+                                Wrong password.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-lg btn-block">Sign in</button>
+                    </form>
+                    <p style="padding-top: 160px; text-align: center;"><a href="create_account.php" class="text-dark">Create your account</a> </p>
+                </div>
+            </div>
+        </div>
+    <div class="col">
+
     </div>
 </div>
 
@@ -97,12 +146,11 @@ if ($_POST)
     }
     else
         $myPassword = md5($_POST['inputPassword']);
-    if (!empty($myFirstName) && !empty($myLastName) && !empty($myEmail) && !empty($myPassword))
-    {
-        $sql = "SELECT id FROM tbl_user WHERE fName='$myFirstName' and lName='$myLastName' and email='$myEmail' and password='$myPassword'";
-        $result = mysqli_query($db,$sql);
-        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-        $count = mysqli_num_rows($result);
+    $sql = "SELECT id FROM tbl_user WHERE fName='$myFirstName' and lName='$myLastName' and email='$myEmail' and password='$myPassword'";
+    $result = mysqli_query($db,$sql);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $count = mysqli_num_rows($result);
+
     if($count == 1) {
         $_SESSION['login_id'] = $row['id'];
         $_SESSION['login_user'] = $myFirstName . " " . $myLastName;
@@ -111,7 +159,6 @@ if ($_POST)
     else {
         echo "<script>var elem = document.getElementById('inputPassword');
             elem.classList.add('is-invalid'); </script>";
-    }
     }
 }
 ?>

@@ -17,4 +17,4 @@ while (($string = fgetcsv($file, 10000, ",")) !== FALSE) {
         die("Error importing table tbl_patient: " . mysqli_error($db) . "<br>");
     }
 }
-?>
+

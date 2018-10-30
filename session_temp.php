@@ -23,4 +23,4 @@ function checkUserConnection()
 //	   return (false);
 //    return (true);
 }
-?>
+

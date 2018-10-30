@@ -112,4 +112,3 @@ if (mysqli_query($db, $sql_patient)) {
 }
 include('importCSVUser.php');
 include('importCSVPatient.php');
-?>
