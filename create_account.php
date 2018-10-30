@@ -36,7 +36,7 @@ if ($_POST) {
         $_SESSION['error_registration']= "Password must be the same";
     else
     {
-        $_SESSION['error_registration']= "";
+        $_SESSION['error_registration']= " ";
         $hash = md5($password);
         $default = "user";
         $path = "path";
@@ -61,7 +61,7 @@ if ($_POST) {
 <body class="align">
 
 <div class="grid">
-
+    <p><a href = "logout.php">Home page</a></p>
     <form action="create_account.php" method="POST" class="form login">
 
         <div class="form__field">

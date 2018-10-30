@@ -23,12 +23,12 @@ if (($db = checkUserConnection()))
     }
     else
         die("Error fetching data: " . mysqli_error($db) . "<br>");
+    ?><p class="text--center"><a href = "logout.php">Sign Out</a></p><?php
 }
 else
 {
     echo "<p class=\"text--center\">Please connect to the site :  <a href = \"login.php\">Login</a> </p>";
 }
 ?>
-<p class="text--center"><a href = "logout.php">Sign Out</a></p>
 </body>
 </html>
