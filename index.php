@@ -1,37 +1,34 @@
+<?php
+session_start();
+    if (empty($_SESSION['login_id']))
+        header("Location: login.php");
+?>
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <title>Medical administration</title>
-    <link rel="stylesheet" type="text/css" href="login.css">
-</head>
-<?php
-include('session_temp.php');
-?>
-<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<body>
-<?php
-if (($db = checkUserConnection()))
-{
-    $tmp = $_SESSION['login_id'];
-    $sql = "select * from tbl_user where id='$tmp'";
-    if (($result = mysqli_query($db, $sql)))
-    {
-        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-        echo "Welcome " . $_SESSION['login_user'] . " (" . $row['status'] . ")";
-        echo "<pre>";
-        print_r($row);
-        echo "</pre>";
-    }
-    else
-        die("Error fetching data: " . mysqli_error($db) . "<br>");
-    ?><p class="text--center"><a href = "logout.php">Sign Out</a></p><?php
-}
-else
-{
-    echo "<p class=\"text--center\">Please connect to the site :  <a href = \"login.php\">Login</a> </p>";
-}
-?>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.mi
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Login</title>
+</head>
+<body background="srcs/forest-bg.jpg" style="background-repeat: no-repeat; background-size: cover;">
+
+<div class="container h-100">
+    <div class="row align-items-center h-100">
+        <div class="col">
+
+        </div>
+        <div class="col-6 shadow bg-white rounded" style="padding: 80px 80px 0px 80px; opacity: 0.8">
+            <p class="text--center"><a href = "logout.php">Sign Out</a></p>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+</div>
 </body>
 </html>

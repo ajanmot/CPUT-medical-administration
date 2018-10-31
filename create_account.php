@@ -1,42 +1,128 @@
+
 <?php
+
 include("includes/dbConnexion.php");
 session_start();
-if ($_POST) {
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $address = $_POST['address'];
-    if (isset($_POST['address_2']))
-        $address2 = $_POST['address_2'];
-    $postalCode = $_POST['postalCode'];
-    $email = $_POST['email'];
-    $cellNum = $_POST['cellNum'];
-    $password = $_POST['password'];
-    $password2 = $_POST['password_2'];
+if ($_POST)
+{
+    if (empty($_POST['inputFirstName']))
+    {
+        echo "<script>var elem = document.getElementById('inputFirstName');
+            elem.classList.add('is-invalid');
+        </script>";
+    }
+    else
+        $firstName = mysqli_real_escape_string($db,$_POST['inputFirstName']);
+    if (empty($_POST['inputLastName']))
+    {
+        echo "<script>var elem = document.getElementById('inputLastName');
+            elem.classList.add('is-invalid'); </script>";
+    }
+    else
+        $lastName = mysqli_real_escape_string($db,$_POST['inputLastName']);
+    if (empty($_POST['inputAddress']))
+    {
+        echo "<script>var elem = document.getElementById('inputAddress');
+            elem.classList.add('is-invalid'); </script>";
+    }
+    else
+        $address = mysqli_real_escape_string($db,$_POST['inputAddress']);
+    if (!empty($_POST['inputAddress2']))
+        $address2 = $_POST['inputAddress2'];
+    if (empty($_POST['inputPCode']))
+    {
+        echo "<script>var elem = document.getElementById('inputPCode');
+            elem.classList.add('is-invalid'); </script>";
+    }
+    else
+        $postalCode = mysqli_real_escape_string($db,$_POST['inputPCode']);
+    if (empty($_POST['inputEmail']))
+    {
+        echo "<script>var elem = document.getElementById('inputEmail');
+            elem.classList.add('is-invalid'); </script>";
+    }
+    else
+        $email = mysqli_real_escape_string($db,$_POST['inputEmail']);
+    if (empty($_POST['inputTel']))
+    {
+        echo "<script>var elem = document.getElementById('inputTel');
+            elem.classList.add('is-invalid'); </script>";
+    }
+    else
+        $cellNum = mysqli_real_escape_string($db,$_POST['inputTel']);
+    if (empty($_POST['inputPassword']))
+    {
+        echo "<script>var elem = document.getElementById('inputPassword');
+            elem.classList.add('is-invalid'); </script>";
+    }
+    else
+        $password = $_POST['inputPassword'];
+    if (empty($_POST['inputPassword2']))
+    {
+        echo "<script>var elem = document.getElementById('inputPassword2');
+            elem.classList.add('is-invalid'); </script>";
+    }
+    else
+        $password2 = $_POST['inputPassword'];
     if (strlen($firstName) > 32)
-        $_SESSION['error_registration']= "First name too long";
+    {
+        echo "<script>var elem = document.getElementById('inputFirstName');
+            elem.classList.add('is-invalid');</script>";
+    }
     else if (strlen($lastName) > 32)
-        $_SESSION['error_registration']= "Last name too long";
+    {
+        echo "<script>var elem = document.getElementById('inputLastName');
+            elem.classList.add('is-invalid');</script>";
+    }
     else if (strlen($address) > 64)
-        $_SESSION['error_registration']= "Address too long";
+    {
+        echo "<script>var elem = document.getElementById('inputAddress');
+            elem.classList.add('is-invalid');</script>";
+    }
     else if (isset($address2) && strlen($address2) > 64)
-        $_SESSION['error_registration']= "Address 2 too long";
+    {
+        echo "<script>var elem = document.getElementById('inputAddress2');
+            elem.classList.add('is-invalid');</script>";
+    }
     else if (strlen($postalCode) > 8)
-        $_SESSION['error_registration']= "Postal code too long";
+    {
+        echo "<script>var elem = document.getElementById('inputPCode');
+            elem.classList.add('is-invalid');</script>";
+    }
     else if (!is_numeric($postalCode))
-        $_SESSION['error_registration']= "Postal code must be numeric";
+    {
+        echo "<script>var elem = document.getElementById('inputPCode');
+            elem.classList.add('is-invalid');</script>";
+    }
     else if (strlen($email) > 32)
-        $_SESSION['error_registration']= "Email too long";
+    {
+        echo "<script>var elem = document.getElementById('inputEmail');
+            elem.classList.add('is-invalid');</script>";
+    }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-        $_SESSION['error_registration']= "Email address invalid";
+    {
+        echo "<script>var elem = document.getElementById('inputEmail');
+            elem.classList.add('is-invalid');</script>";
+    }
     else if (strlen($cellNum) != 10)
-        $_SESSION['error_registration']= "Cell num must be 10 digit";
+    {
+        echo "<script>var elem = document.getElementById('inputTel');
+            elem.classList.add('is-invalid');</script>";
+    }
     else if (!is_numeric($cellNum))
-        $_SESSION['error_registration']= "Cell num must be numeric";
+    {
+        echo "<script>var elem = document.getElementById('inputTel');
+            elem.classList.add('is-invalid');</script>";
+    }
     else if ($password != $password2)
-        $_SESSION['error_registration']= "Password must be the same";
+    {
+        echo "<script>var elem = document.getElementById('inputPassword');
+            elem.classList.add('is-invalid');</script>";
+        echo "<script>var elem = document.getElementById('inputPassword2');
+            elem.classList.add('is-invalid');</script>";
+    }
     else
     {
-        $_SESSION['error_registration']= " ";
         $hash = md5($password);
         $default = "user";
         $path = "path";
@@ -56,59 +142,94 @@ if ($_POST) {
 }
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <title>Medical administration</title>
-    <link rel="stylesheet" type="text/css" href="login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Hello, world!</title>
 </head>
-<body class="align">
+<body background="srcs/forest-bg.jpg" style="background-repeat: no-repeat; background-size: cover;">
+<div class="container h-100">
+    <div class="row align-items-center h-100">
+        <div class="col">
 
-<div class="grid">
-    <p><a href = "logout.php">Home page</a></p>
-    <form action="create_account.php" method="POST" class="form login">
+        </div>
+        <div class="col-6 shadow bg-white rounded" style="padding: 80px 80px 100px 80px; opacity: 0.8">
+            <h3 style="padding-bottom: 50px; text-align: center;" class="text-dark">Member Creation</h3>
+            <form action="create_account.php" method="POST">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" name="inputFirstName" value="<?php if (isset($_POST['inputFirstName']))echo $_POST['inputFirstName'];?>" required>
+                        <div class="invalid-feedback">
+                            Invalid first name.
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" name="inputLastName" value="<?php if (isset($_POST['inputLastName']))echo $_POST['inputLastName'];?>" required>
+                    </div>
+                    <div class="invalid-feedback">
+                        Invalid last name.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="inputAddress" placeholder="Address" name="inputAddress" value="<?php if (isset($_POST['inputAddress']))echo $_POST['inputAddress'];?>" required>
+                    <div class="invalid-feedback">
+                        Invalid address.
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-8">
+                        <input type="text" class="form-control" id="inputAddress2" placeholder="Address 2" name="inputAddress2" value="<?php if (isset($_POST['inputAddress2']))echo $_POST['inputAddress2'];?>" required>
+                    </div>
+                    <div class="form-group col-4">
+                        <input type="text" class="form-control" id="inputPCode" placeholder="Postal code" name="inputPCode" value="<?php if (isset($_POST['inputPCode']))echo $_POST['inputPCode'];?>" required>
+                        <div class="invalid-feedback">
+                            Invalid postal code.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email address" name="inputEmail" value="<?php if (isset($_POST['inputEmail']))echo $_POST['inputEmail'];?>" required>
+                    <div class="invalid-feedback">
+                        Invalid email address.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="inputTel" placeholder="Tel. N°" name="inputTel" value="<?php if (isset($_POST['inputTel']))echo $_POST['inputTel'];?>" required>
+                    <div class="invalid-feedback">
+                        Invalid phone number.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="inputPassword" required>
+                    <div class="invalid-feedback">
+                        Password doesn't match.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="inputPassword2" placeholder="Password" name="inputPassword2" required>
+                    <div class="invalid-feedback">
+                        Password doesn't match.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-secondary btn-lg btn-block">Register</button>
+            </form>
+        </div>
+        <div class="col">
 
-        <div class="form__field">
-            <label for="createacc_first_name"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">First Name</span></label>
-            <input id="createacc_first_name" type="text" name="firstName" class="form__input" placeholder="First Name" value="<?php if (isset($_POST['firstName']))echo $_POST['firstName'];?>"required>
         </div>
-        <div class="form__field">
-            <label for="createacc_last_name"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Last Name</span></label>
-            <input id="createacc_last_name" type="text" name="lastName" class="form__input" placeholder="Last Name" value="<?php if (isset($_POST['lastName']))echo $_POST['lastName'];?>"required>
-        </div>
-        <div class="form__field">
-            <label for="createacc_address"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Address 1</span></label>
-            <input id="createacc_address" type="text" name="address" class="form__input" placeholder="Address 1" value="<?php if (isset($_POST['address']))echo $_POST['address'];?>"required>
-        </div>
-        <div class="form__field">
-            <label for="createacc_address_2"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Address 2</span></label>
-            <input id="createacc_address_2" type="text" name="address_2" class="form__input" placeholder="Address 2" value="<?php if (isset($_POST['address_2']))echo $_POST['address_2'];?>">
-        </div>
-        <div class="form__field">
-            <label for="createacc_postal_code"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Postal Code</span></label>
-            <input id="createacc_postal_code" type="text" name="postalCode" class="form__input" placeholder="Postal Code" value="<?php if (isset($_POST['postalCode']))echo $_POST['postalCode'];?>" required>
-        </div>
-        <div class="form__field">
-            <label for="createacc_email"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Email Adress</span></label>
-            <input id="createacc_email" type="email" name="email" class="form__input" placeholder="Email Address"  value="<?php if (isset($_POST['email']))echo $_POST['email'];?>" required>
-        </div>
-        <div class="form__field">
-            <label for="createacc_cell_num"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use></svg><span class="hidden">Cell Num</span></label>
-            <input id="createacc_cell_num" type="text" name="cellNum" class="form__input" placeholder="Cell Num" value="<?php if (isset($_POST['cellNum']))echo $_POST['cellNum'];?>" required>
-        </div>
-        <div class="form__field">
-            <label for="createacc_password"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock"></use></svg><span class="hidden">Password</span></label>
-            <input id="createacc_password" type="password" name="password" class="form__input" placeholder="Password" required>
-        </div>
-        <div class="form__field">
-            <label for="createacc_password__2"><svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock"></use></svg><span class="hidden">Password</span></label>
-            <input id="createacc_password__2" type="password" name="password_2" class="form__input" placeholder="Password" required>
-        </div>
-
-        <div class="form__field">
-            <input type="submit" value="Register">
-        </div>
-        <p class="text--center"><?php if (isset($_SESSION['error_registration'])) echo $_SESSION['error_registration'];?></p>
-    </form>
+    </div>
 </div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
+</html>

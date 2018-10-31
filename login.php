@@ -1,3 +1,61 @@
+
+<?php
+
+include("includes/dbConnexion.php");
+session_start();
+if ($_POST)
+{      echo "<h1> Avant le if </h1>";
+
+    if (empty($_POST['inputFirstName']))
+    {
+        echo "<script>var elem = document.getElementById('inputFirstName');
+            elem.classList.add('is-invalid');
+        </script>";
+    }
+    else
+        $myFirstName = mysqli_real_escape_string($db,$_POST['inputFirstName']);
+    if (empty($_POST['inputLastName']))
+    {
+        echo "<script>var elem = document.getElementById('inputLastName');
+            elem.classList.add('is-invalid'); </script>";
+    }
+    else
+        $myLastName = mysqli_real_escape_string($db,$_POST['inputLastName']);
+    if (empty($_POST['inputEmail']))
+    {
+        echo "<script>var elem = document.getElementById('inputEmail');
+            elem.classList.add('is-invalid'); </script>";
+    }
+    else
+        $myEmail = mysqli_real_escape_string($db,$_POST['inputEmail']);
+    if (empty($_POST['inputPassword']))
+    {
+        echo "<script>var elem = document.getElementById('inputPassword');
+            elem.classList.add('is-invalid'); </script>";
+    }
+    else
+    {
+        $myPassword = md5($_POST['inputPassword']);
+    }
+    if (!empty($myFirstName) && !empty($myLastName) && !empty($myEmail) && !empty($myPassword))
+    {
+        $sql = "SELECT id FROM tbl_user WHERE fName='$myFirstName' and lName='$myLastName' and email='$myEmail' and password='$myPassword'";
+        echo $sql;
+        $result = mysqli_query($db,$sql);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        $count = mysqli_num_rows($result);
+        if($count == 1) {
+            $_SESSION['login_id'] = $row['id'];
+            $_SESSION['login_user'] = $myFirstName . " " . $myLastName;
+            header("Location: index.php");
+        }
+        else {
+            echo "<script>var elem = document.getElementById('inputPassword');
+            elem.classList.add('is-invalid'); </script>";
+        }
+    }
+}
+?>          
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,7 +66,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Hello, world!</title>
+    <title>Login</title>
 </head>
 <body background="srcs/forest-bg.jpg" style="background-repeat: no-repeat; background-size: cover;">
 <div class="container h-100">
@@ -18,7 +76,7 @@
         </div>
         <div class="col-6 shadow bg-white rounded" style="padding: 80px 80px 0px 80px; opacity: 0.8">
             <h3 style="padding-bottom: 50px; text-align: center;" class="text-dark"> Member Login</h3>
-            <form action="login2.php" method="POST">
+            <form action="login.php" method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" name="inputFirstName" value="<?php if (isset($_POST['inputFirstName']))echo $_POST['inputFirstName'];?>">
@@ -62,56 +120,3 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>
-<?php
-
-include("includes/dbConnexion.php");
-session_start();
-if ($_POST)
-{
-    if (empty($_POST['inputFirstName']))
-    {
-        echo "<script>var elem = document.getElementById('inputFirstName');
-            elem.classList.add('is-invalid');
-        </script>";
-    }
-    else
-        $myFirstName = mysqli_real_escape_string($db,$_POST['inputFirstName']);
-    if (empty($_POST['inputLastName']))
-    {
-        echo "<script>var elem = document.getElementById('inputLastName');
-            elem.classList.add('is-invalid'); </script>";
-    }
-    else
-        $myLastName = mysqli_real_escape_string($db,$_POST['inputLastName']);
-    if (empty($_POST['inputEmail']))
-    {
-        echo "<script>var elem = document.getElementById('inputEmail');
-            elem.classList.add('is-invalid'); </script>";
-    }
-    else
-        $myEmail = mysqli_real_escape_string($db,$_POST['inputEmail']);
-    if (empty($_POST['inputPassword']))
-    {
-        echo "<script>var elem = document.getElementById('inputPassword');
-            elem.classList.add('is-invalid'); </script>";
-    }
-    else
-        $myPassword = md5($_POST['inputPassword']);
-    if (!empty($myFirstName) && !empty($myLastName) && !empty($myEmail) && !empty($myPassword))
-    {
-        $sql = "SELECT id FROM tbl_user WHERE fName='$myFirstName' and lName='$myLastName' and email='$myEmail' and password='$myPassword'";
-        $result = mysqli_query($db,$sql);
-        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-        $count = mysqli_num_rows($result);
-    if($count == 1) {
-        $_SESSION['login_id'] = $row['id'];
-        $_SESSION['login_user'] = $myFirstName . " " . $myLastName;
-        header("location: index.php");
-    }
-    else {
-        echo "<script>var elem = document.getElementById('inputPassword');
-            elem.classList.add('is-invalid'); </script>";
-    }
-    }
-}
-?>
