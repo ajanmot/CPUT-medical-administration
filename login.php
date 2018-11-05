@@ -40,7 +40,6 @@ if ($_POST)
     if (!empty($myFirstName) && !empty($myLastName) && !empty($myEmail) && !empty($myPassword))
     {
         $sql = "SELECT id FROM tbl_user WHERE fName='$myFirstName' and lName='$myLastName' and email='$myEmail' and password='$myPassword'";
-        echo $sql;
         $result = mysqli_query($db,$sql);
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $count = mysqli_num_rows($result);

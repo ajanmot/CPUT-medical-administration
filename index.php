@@ -11,7 +11,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.mi
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Login</title>
 </head>
@@ -22,8 +22,9 @@ session_start();
         <div class="col">
 
         </div>
-        <div class="col-6 shadow bg-white rounded" style="padding: 80px 80px 0px 80px; opacity: 0.8">
-            <p class="text--center"><a href = "logout.php">Sign Out</a></p>
+        <div class="col-6 shadow bg-white rounded" style="padding: 80px 80px 80px 80px; opacity: 0.8">
+            <p class="text--center" style="text-align: center;"><a href = "showTable.php">Show table</a></p>
+            <p class="text--center" style="text-align: center;"><a href = "logout.php">Sign Out</a></p>
         </div>
         <div class="col">
 
