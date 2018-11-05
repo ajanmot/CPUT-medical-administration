@@ -38,6 +38,7 @@ if (strcmp($row['status'], 'user') == 0)
 else
     $list_sql = "SELECT * FROM tbl_patient";
 $list_result = mysqli_query($db,$list_sql);
+
 ?>
 <div class="container h-100">
     <div class="row align-items-center h-100">
@@ -73,14 +74,16 @@ $list_result = mysqli_query($db,$list_sql);
                             <td><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal<?php echo $row['id']; ?>">Show Face</button></td>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="myModal<?php echo $row['id']; ?>" role="dialog">
+                            <div class="modal fade" id="myModal<?php echo $row['id']; ?>" role="dialog" data-backdrop="false">
                                 <div class="modal-dialog">
 
                                     <!-- Modal content-->
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <img src="<?php echo $value; ?>.png" style ="width:85%" class="w3-round">
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="<?php echo $value; ?>.png" style ="width:100%" class="w3-round">
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -107,5 +110,3 @@ $list_result = mysqli_query($db,$list_sql);
 </div>
 </body>
 </html>
-
-<!-- Button trigger modal -->
