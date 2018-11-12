@@ -4,8 +4,7 @@
 include("includes/dbConnexion.php");
 session_start();
 if ($_POST)
-{      echo "<h1> Avant le if </h1>";
-
+{
     if (empty($_POST['inputFirstName']))
     {
         echo "<script>var elem = document.getElementById('inputFirstName');

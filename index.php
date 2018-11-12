@@ -23,7 +23,7 @@ session_start();
 
         </div>
         <div class="col-6 shadow bg-white rounded" style="padding: 80px 80px 80px 80px; opacity: 0.8">
-            <p class="text--center" style="text-align: center;"><a href = "showTable.php">Show table</a></p>
+            <p class="text--center" style="text-align: center;"><a href = "show_table_patient.php">Show table</a></p>
             <p class="text--center" style="text-align: center;"><a href = "logout.php">Sign Out</a></p>
         </div>
         <div class="col">

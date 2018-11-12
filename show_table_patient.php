@@ -25,9 +25,6 @@ include("includes/dbConnexion.php");
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Show table</title>
 </head>
-<body background="srcs/forest-bg.jpg" style="background-repeat: no-repeat; background-size: cover;">
-
-
 <?php
 $user_id = $_SESSION['login_id'];
 $user_sql = "SELECT status FROM tbl_user WHERE id='$user_id'";
@@ -58,6 +55,8 @@ $list_result = mysqli_query($db,$list_sql);
                     <th scope="col">GradeClass</th>
                     <th scope="col">Prescript</th>
                     <th scope="col">Image</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -98,6 +97,10 @@ $list_result = mysqli_query($db,$list_sql);
                             echo "<td>" . $value ."</td>";
 
                     }
+                    ?>
+                    <td><a href="edit.php?editPatient=1&id=<?php echo $row['id'];?>&fName=<?php echo $row['fName'];?>&lName=<?php echo $row['lName'];?>&roomNo=<?php echo $row['roomNo'];?>&nextOfKinID=<?php echo $row['nextOfKinID'];?>&address1=<?php echo $row['address1'];?>&address2=<?php echo $row['address2'];?>&postalCode=<?php echo $row['postalCode'];?>&gradeClasification=<?php echo $row['gradeClasification'];?>&prescript=<?php echo $row['prescript'];?>&patientImage=<?php echo $row['patientImage'];?>">Edit</a></td>
+                    <td><a href="edit.php?deletePatient=1&id=<?php echo $row['id'];?>">Delete</a></td>
+                    <?php
                     echo "</tr>";
 
                 }
