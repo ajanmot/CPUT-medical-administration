@@ -35,10 +35,9 @@ if (strcmp($row['status'], 'user') == 0)
 else
     $list_sql = "SELECT * FROM tbl_patient";
 $list_result = mysqli_query($db,$list_sql);
-
 ?>
 <div class="container h-100">
-    <div class="row align-items-center h-100">
+    <div class="row d-flex justify-content-center" style="margin-top: 200px;">
         <div class="shadow bg-white rounded" style="opacity: 0.8">
             <table class="table table-striped">
                 <thead>

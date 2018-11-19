@@ -21,6 +21,26 @@ if($val_user !== FALSE)
         echo "--->Error dropping table_user : " .mysqli_error($db) . "<br>";
 }
 
+$val_medecine = mysqli_query($db,'select 1 from `tbl_medecine` LIMIT 1');
+
+if($val_medecine !== FALSE)
+{
+    if (mysqli_query($db,'DROP TABLE tbl_medecine'))
+        echo "Table tbl_medecine has been droped <br>";
+    else
+        echo "--->Error dropping table_medecine : " .mysqli_error($db) . "<br>";
+}
+
+$val_item = mysqli_query($db,'select 1 from `tbl_item` LIMIT 1');
+
+if($val_item !== FALSE)
+{
+    if (mysqli_query($db,'DROP TABLE tbl_item'))
+        echo "Table tbl_item has been droped <br>";
+    else
+        echo "--->Error dropping table_item : " .mysqli_error($db) . "<br>";
+}
+
 $sql_user = "CREATE TABLE `tbl_user` (
 `id` int(11) NOT NULL,
 `fName` varchar(32) NOT NULL,
@@ -110,5 +130,34 @@ if (mysqli_query($db, $sql_patient)) {
 } else {
     echo "--->Error altering table (foreign): " . mysqli_error($db) . "<br>";
 }
+
+$sql_medecine = "CREATE TABLE `tbl_medecine` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `medDesc` varchar(45) NOT NULL,
+  `schedule` varchar(45) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+if (mysqli_query($db, $sql_medecine)) {
+    echo "Structure of tbl_medecine created successfully<br>";
+} else {
+    echo "--->Error creating table: " . mysqli_error($db) . "<br>";
+}
+
+$sql_item = "CREATE TABLE `tbl_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `itemDesc` varchar(45) NOT NULL,
+  `itemPic` varchar(45) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+if (mysqli_query($db, $sql_item)) {
+    echo "Structure of tbl_item created successfully<br>";
+} else {
+    echo "--->Error creating table: " . mysqli_error($db) . "<br>";
+}
+
 include('importCSVUser.php');
 include('importCSVPatient.php');
+include('importCSVMedecine.php');
+include('importCSVItem.php');

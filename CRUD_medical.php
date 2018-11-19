@@ -31,11 +31,18 @@ public function processUserInput()
     {
         $this->editPatient();
     }
+    else if (!empty($_GET['deleteMedecine']))
+    {
+        $this->deleteMedecine();
+    }
+    else if (!empty($_GET['editMedecine']))
+    {
+        $this->editMedecine();
+    }
 }
 
 private function deletePatient()
 {
-    //if (count($this->errorMsgs) == 0) {
     $tmpPatientId = $_GET['id'];
     $SQLstring = "delete from tbl_Patient where id='$tmpPatientId'";
     $QueryResult = mysqli_query($this->dbConn, $SQLstring);
@@ -43,9 +50,21 @@ private function deletePatient()
         $this->errorMgs[] = "<p>Unable to perform the query. " .
             "<p>Error code " . $this->dbConn->errno .
             ": " . $this->dbConn->error . "</p>\n";
-    //}
     echo $this->errorMsgs;
     header("Location: show_table_patient.php");
+}
+
+private function deleteMedecine()
+{
+    $tmpmedecineId = $_GET['id'];
+    $SQLstring = "delete from tbl_medecine where id='$tmpmedecineId'";
+    $QueryResult = mysqli_query($this->dbConn, $SQLstring);
+    if ($QueryResult === FALSE)
+        $this->errorMgs[] = "<p>Unable to perform the query. " .
+            "<p>Error code " . $this->dbConn->errno .
+            ": " . $this->dbConn->error . "</p>\n";
+    echo $this->errorMsgs;
+    header("Location: show_table_medecine.php");
 }
 
 private function editPatient()
@@ -116,6 +135,50 @@ private function editPatient()
     </div>
 </div>
 
+</body>
+</html>
+<?php
+}
+private function editMedecine()
+{
+?>
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Edit medecine</title>
+</head>
+<body background="srcs/forest-bg.jpg" style="background-repeat: no-repeat; background-size: cover;">
+<div class="row align-items-center h-100">
+    <div class="col">
+
+    </div>
+    <div class="col-6 shadow bg-white rounded" style="padding: 80px 80px 80px 80px; opacity: 0.8">
+        <h3 style="padding-bottom: 50px; text-align: center;" class="text-dark"> Medecine n° <?php echo $_GET['id']?> edit</h3>
+        <form action="edit.php" method="POST">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="inputMedDesc" placeholder="Medecine description" name="inputMedDesc" value="<?php if (isset($_GET['medDesc']))echo $_GET['medDesc'];?>">
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="inputSchedule" placeholder="Schedule" name="inputSchedule" value="<?php if (isset($_GET['schedule']))echo $_GET['schedule'];?>">
+                </div>
+            </div>
+            <input type="hidden" id="tableToModify" name="tableToModify" value="medecine">
+            <input type="hidden" id="idMedecine" name="idMedecine" value="<?php echo $_GET['id']?>">
+            <button type="submit" class="btn btn-secondary btn-lg btn-block">Modify medecine</button>
+        </form>
+    </div>
+    <div class="col">
+
+    </div>
+</div>
 </body>
 </html>
 <?php

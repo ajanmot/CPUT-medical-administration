@@ -8,9 +8,7 @@
 session_start();
 if ($_POST && $_POST['tableToModify'] == "patient")
 {
-    echo "<h1>Table modifie</h1>";
     $id = $_POST['idPatient'];
-    echo $id;
     $fName = $_POST['inputFirstName'];
     $lName = $_POST['inputLastName'];
     $roomNo = $_POST['inputRoomNo'];
@@ -22,13 +20,25 @@ if ($_POST && $_POST['tableToModify'] == "patient")
     $prescript = $_POST['inputPrescript'];
     $SQLRequest = "UPDATE tbl_patient SET fName='$fName', lName='$lName', roomNo='$roomNo', nextOfKinID='$nextOfKinID', address1='$address1',
       address2='$address2', postalCode='$postalCode', gradeClasification='$gradeClasification', prescript='$prescript' WHERE id='$id'";
-    echo $SQLRequest;
     include("includes/dbConnexion.php");
     $QueryResult = mysqli_query($db, $SQLRequest);
     if ($QueryResult == FALSE)
         echo "Error while editing the data" . $db->error;
     else
         header("Location: show_table_patient.php");
+}
+else if ($_POST && $_POST['tableToModify'] == "medecine")
+{
+    $id = $_POST['idMedecine'];
+    $medDesc = $_POST['inputMedDesc'];
+    $schedule = $_POST['inputSchedule'];
+    $SQLRequest ="UPDATE tbl_medecine SET medDesc='$medDesc', schedule='$schedule' WHERE id='$id'";
+    include("includes/dbConnexion.php");
+    $QueryResult = mysqli_query($db, $SQLRequest);
+    if ($QueryResult == FALSE)
+        echo "Error while editing the data" . $db->error;
+    else
+       header("Location: show_table_medecine.php");
 }
     include("CRUD_medical.php");
     if (isset($_SESSION['sess_crud']))
