@@ -4,11 +4,13 @@
  * User: Antonin
  * Date: 05/11/2018
  * Time: 12:57
+ * Sources https://getbootstrap.com/
  */
 
 session_start();
 if (empty($_SESSION['login_id']))
     header("Location: login.php");
+include_once('includes/navbar.php');
 include("includes/dbConnexion.php");
 ?>
 

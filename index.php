@@ -1,4 +1,7 @@
 <?php
+/**
+ * Sources : Bootstrap
+ */
 session_start();
     if (empty($_SESSION['login_id']))
         header("Location: login.php");
@@ -15,6 +18,7 @@ session_start();
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Login</title>
 </head>
+<?php include_once('includes/navbar.php')?>
 <body background="srcs/forest-bg.jpg" style="background-repeat: no-repeat; background-size: cover;">
 
 <div class="container h-100">

@@ -1,4 +1,5 @@
 <?php
+
 include("dbConnexion.php");
 
 $val_patient = mysqli_query($db,'select 1 from `tbl_patient` LIMIT 1');

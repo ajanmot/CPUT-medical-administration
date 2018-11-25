@@ -40,6 +40,19 @@ else if ($_POST && $_POST['tableToModify'] == "medecine")
     else
        header("Location: show_table_medecine.php");
 }
+else if ($_POST && $_POST['tableToModify'] == "item")
+{
+    $id = $_POST['idItem'];
+    $itemDesc = $_POST['inputItemDesc'];
+    $itemPic = $_POST['inputItemPic'];
+    $SQLRequest ="UPDATE tbl_item SET itemDesc='$itemDesc', itemPic='$itemPic' WHERE id='$id'";
+    include("includes/dbConnexion.php");
+    $QueryResult = mysqli_query($db, $SQLRequest);
+    if ($QueryResult == FALSE)
+        echo "Error while editing the data" . $db->error;
+    else
+       header("Location: show_table_item.php");
+}
     include("CRUD_medical.php");
     if (isset($_SESSION['sess_crud']))
         $crud = unserialize($_SESSION['sess_crud']);
