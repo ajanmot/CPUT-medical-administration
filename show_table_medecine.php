@@ -31,17 +31,19 @@ include("includes/dbConnexion.php");
 
 <?php
 $user_id = $_SESSION['login_id'];
-$patient_sql = "SELECT id FROM tbl_patient WHERE nextOfKinID='$user_id'";
-
-$patient_result = mysqli_query($db, $patient_sql);
-
-while (($row_patient = mysqli_fetch_array($patient_result, MYSQLI_ASSOC)))
+$sql_status = "SELECT status FROM tbl_user WHERE id='$user_id'";
+$result_status = mysqli_query($db, $sql_status);
+$row = mysqli_fetch_array($result_status, MYSQLI_ASSOC);
+if ($row['status'] != 'user')
+    $sql_medecine = "SELECT * FROM tbl_medecine";
+else
+    $sql_medecine = "SELECT * FROM tbl_medecine WHERE id IN (SELECT tbl_medecine_ID FROM tbl_patient_has_medecine WHERE tbl_patient_ID IN (SELECT id FROM tbl_patient WHERE nextOfKinID='$user_id'))";
+echo $sql_medecine;
+if (!($medecine_result = mysqli_query($db, $sql_medecine)))
 {
-    $patient_id = $row_patient['id'];
-    $medecine_sql = "SELECT * FROM tbl_medecine WHERE id IN (SELECT tbl_medecine_ID FROM tbl_patient_has_medecine WHERE tbl_patient_ID='$patient_id')";
-    $medecine_temp_result = mysqli_query($db, $medecine_sql);
-    $medecine_result += $medecine_temp_result;
+    echo $db->error;
 }
+
 
 ?>
 
