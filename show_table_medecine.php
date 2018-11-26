@@ -30,9 +30,18 @@ include("includes/dbConnexion.php");
 </head>
 
 <?php
-$medecine_sql = "SELECT * FROM tbl_medecine";
+$user_id = $_SESSION['login_id'];
+$patient_sql = "SELECT id FROM tbl_patient WHERE nextOfKinID='$user_id'";
 
-$medecine_result = mysqli_query($db, $medecine_sql);
+$patient_result = mysqli_query($db, $patient_sql);
+
+while (($row_patient = mysqli_fetch_array($patient_result, MYSQLI_ASSOC)))
+{
+    $patient_id = $row_patient['id'];
+    $medecine_sql = "SELECT * FROM tbl_medecine WHERE id IN (SELECT tbl_medecine_ID FROM tbl_patient_has_medecine WHERE tbl_patient_ID='$patient_id')";
+    $medecine_temp_result = mysqli_query($db, $medecine_sql);
+    $medecine_result += $medecine_temp_result;
+}
 
 ?>
 

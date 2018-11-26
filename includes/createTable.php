@@ -42,6 +42,16 @@ if($val_item !== FALSE)
         echo "--->Error dropping table_item : " .mysqli_error($db) . "<br>";
 }
 
+$val_patient_has_mdecine = mysqli_query($db,'select 1 from `tbl_patient_has_mdecine` LIMIT 1');
+
+if($val_patient_has_mdecine !== FALSE)
+{
+    if (mysqli_query($db,'DROP TABLE tbl_patient_has_mdecine'))
+        echo "Table tbl_patient_has_mdecine has been droped <br>";
+    else
+        echo "--->Error dropping table_patient_has_mdecine : " .mysqli_error($db) . "<br>";
+}
+
 $sql_user = "CREATE TABLE `tbl_user` (
 `id` int(11) NOT NULL,
 `fName` varchar(32) NOT NULL,
@@ -158,7 +168,22 @@ if (mysqli_query($db, $sql_item)) {
     echo "--->Error creating table: " . mysqli_error($db) . "<br>";
 }
 
+$sql_patient_has_medecine = "CREATE TABLE `tbl_patient_has_medecine` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tbl_patient_ID` varchar(45) NOT NULL,
+  `tbl_medecine_ID` varchar(45) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+if (mysqli_query($db, $sql_patient_has_medecine)) {
+    echo "Structure of tbl_patient_has_medecines created successfully<br>";
+} else {
+    echo "--->Error creating table: " . mysqli_error($db) . "<br>";
+}
+
 include('importCSVUser.php');
 include('importCSVPatient.php');
 include('importCSVMedecine.php');
 include('importCSVItem.php');
+include('importCSVPatientHasMedecine.php');
+

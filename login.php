@@ -5,57 +5,7 @@
  */
 include("includes/dbConnexion.php");
 session_start();
-if ($_POST)
-{
-    if (empty($_POST['inputFirstName']))
-    {
-        echo "<script>var elem = document.getElementById('inputFirstName');
-            elem.classList.add('is-invalid');
-        </script>";
-    }
-    else
-        $myFirstName = mysqli_real_escape_string($db,$_POST['inputFirstName']);
-    if (empty($_POST['inputLastName']))
-    {
-        echo "<script>var elem = document.getElementById('inputLastName');
-            elem.classList.add('is-invalid'); </script>";
-    }
-    else
-        $myLastName = mysqli_real_escape_string($db,$_POST['inputLastName']);
-    if (empty($_POST['inputEmail']))
-    {
-        echo "<script>var elem = document.getElementById('inputEmail');
-            elem.classList.add('is-invalid'); </script>";
-    }
-    else
-        $myEmail = mysqli_real_escape_string($db,$_POST['inputEmail']);
-    if (empty($_POST['inputPassword']))
-    {
-        echo "<script>var elem = document.getElementById('inputPassword');
-            elem.classList.add('is-invalid'); </script>";
-    }
-    else
-    {
-        $myPassword = md5($_POST['inputPassword']);
-    }
-    if (!empty($myFirstName) && !empty($myLastName) && !empty($myEmail) && !empty($myPassword))
-    {
-        $sql = "SELECT id FROM tbl_user WHERE fName='$myFirstName' and lName='$myLastName' and email='$myEmail' and password='$myPassword'";
-        $result = mysqli_query($db,$sql);
-        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-        $count = mysqli_num_rows($result);
-        if($count == 1) {
-            $_SESSION['login_id'] = $row['id'];
-            $_SESSION['login_user'] = $myFirstName . " " . $myLastName;
-            header("Location: index.php");
-        }
-        else {
-            echo "<script>var elem = document.getElementById('inputPassword');
-            elem.classList.add('is-invalid'); </script>";
-        }
-    }
-}
-?>          
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -120,3 +70,56 @@ if ($_POST)
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>
+<?php
+if ($_POST)
+{
+    if (empty($_POST['inputFirstName']))
+    {
+        echo "<script>var elemFirst = document.getElementById('inputFirstName');
+    elemFirst.classList.add('is-invalid');
+</script>";
+    }
+    else
+        $myFirstName = mysqli_real_escape_string($db,$_POST['inputFirstName']);
+    if (empty($_POST['inputLastName']))
+    {
+        echo "<script>var elemLast = document.getElementById('inputLastName');
+    elemLast.classList.add('is-invalid'); </script>";
+    }
+    else
+        $myLastName = mysqli_real_escape_string($db,$_POST['inputLastName']);
+    if (empty($_POST['inputEmail']))
+    {
+        echo "<script>var elemEmail = document.getElementById('inputEmail');
+    elemEmail.classList.add('is-invalid'); </script>";
+    }
+    else
+        $myEmail = mysqli_real_escape_string($db,$_POST['inputEmail']);
+    if (empty($_POST['inputPassword']))
+    {
+        echo "<script>var elemPassword = document.getElementById('inputPassword');
+    elemPassword.classList.add('is-invalid'); </script>";
+    }
+    else
+    {
+        echo "<h1> Password vide</h1>";
+        $myPassword = md5($_POST['inputPassword']);
+    }
+    if (!empty($myFirstName) && !empty($myLastName) && !empty($myEmail) && !empty($myPassword))
+    {
+        $sql = "SELECT id, fName, lName, email FROM tbl_user WHERE fName='$myFirstName' and lName='$myLastName' and email='$myEmail' and password='$myPassword'";
+        $result = mysqli_query($db,$sql);
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        $count = mysqli_num_rows($result);
+        if ($count == 1) {
+            $_SESSION['login_id'] = $row['id'];
+            $_SESSION['login_user'] = $myFirstName . " " . $myLastName;
+            header("Location: index.php");
+        }
+        else {
+            echo "<script>var elemPassword2 = document.getElementById('inputPassword');
+    elemPassword2.classList.add('is-invalid'); </script>";
+        }
+    }
+}
+?>

@@ -30,7 +30,7 @@ session_start();
             <p class="text--center" style="text-align: center;"><a href = "show_table_patient.php">Show table patient</a></p>
             <p class="text--center" style="text-align: center;"><a href = "show_table_medecine.php">Show table medecine</a></p>
             <p class="text--center" style="text-align: center;"><a href = "show_table_item.php">Show table item</a></p>
-            <p class="text--center" style="text-align: center;"><a href = "logout.php">Sign Out</a></p>
+            <p class="text--center" style="text-align: center;"><a href = "logout.php">Log Out</a></p>
         </div>
         <div class="col">
 
