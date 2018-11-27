@@ -38,7 +38,7 @@ $row = mysqli_fetch_array($result_status, MYSQLI_ASSOC);
 if ($row['status'] != 'user')
     $sql_item = "SELECT * FROM tbl_item";
 else
-    $sql_item = "SELECT * FROM tbl_item WHERE id IN (SELECT tbl_item_ID FROM tbl_patient_has_item WHERE tbl_patient_ID IN (SELECT id FROM tbl_patient WHERE nextOfKinID='$user_id'))";
+$sql_item = "SELECT tbl_patient.id, tbl_patient.fName, tbl_patient.lName, tbl_patient_has_item.tbl_item_ID,tbl_item.itemDesc, tbl_item.itemPic FROM tbl_patient JOIN tbl_patient_has_item ON tbl_patient.id = tbl_patient_has_item.tbl_patient_ID JOIN tbl_item ON tbl_patient_has_item.tbl_item_ID = tbl_item.id WHERE tbl_patient.nextOfKinID = '$user_id'";
 if (!($item_result = mysqli_query($db, $sql_item)))
     echo $db->error;
 ?>
@@ -50,7 +50,10 @@ if (!($item_result = mysqli_query($db, $sql_item)))
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">Patient ID</th>
+                    <th scope="col">fName</th>
+                    <th scope="col">lName</th>
+                    <th scope="col">Item ID</th>
                     <th scope="col">itemDesc</th>
                     <th scope="col">itemPic</th>
                     <th scope="col">Edit</th>
@@ -64,14 +67,14 @@ if (!($item_result = mysqli_query($db, $sql_item)))
                     echo "<tr>";
                     foreach ($row as $key => $value)
                     {
-                        if (!strcmp($key, "id"))
-                            echo '<th scope="row">' . $value .' </th>';
+                        if (!strcmp($key, "id") || !strcmp($key, "tbl_item_ID"))
+                            echo '<th scope="row">' . $value . ' </th>';
                         else
                             echo "<td>" . $value . "</td>";
                     }
                     ?>
-                    <td><a href="edit.php?editItem=1&id=<?php echo $row['id'];?>&itemDesc=<?php echo $row['itemDesc']?>&itemPic=<?php echo $row['itemPic']?>">Edit</a></td>
-                    <td><a href="edit.php?deleteItem=1&id=<?php echo $row['id'];?>">Delete</a></td>
+                    <td><a href="edit.php?editItem=1&id=<?php echo $row['tbl_item_ID'];?>&itemDesc=<?php echo $row['itemDesc']?>&itemPic=<?php echo $row['itemPic']?>">Edit</a></td>
+                    <td><a href="edit.php?deleteItem=1&id=<?php echo $row['tbl_item_ID'];?>">Delete</a></td>
                     <?php
                     echo "</tr>";
                 }

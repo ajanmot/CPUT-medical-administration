@@ -37,8 +37,8 @@ $row = mysqli_fetch_array($result_status, MYSQLI_ASSOC);
 if ($row['status'] != 'user')
     $sql_medecine = "SELECT * FROM tbl_medecine";
 else
-    $sql_medecine = "SELECT * FROM tbl_medecine WHERE id IN (SELECT tbl_medecine_ID FROM tbl_patient_has_medecine WHERE tbl_patient_ID IN (SELECT id FROM tbl_patient WHERE nextOfKinID='$user_id'))";
-if (!($medecine_result = mysqli_query($db, $sql_medecine)))
+    $sql_medecine = "SELECT tbl_patient.id, tbl_patient.fName, tbl_patient.lName, tbl_patient_has_medecine.tbl_medecine_ID,tbl_medecine.medDesc, tbl_medecine.schedule FROM tbl_patient JOIN tbl_patient_has_medecine ON tbl_patient.id = tbl_patient_has_medecine.tbl_patient_ID JOIN tbl_medecine ON tbl_patient_has_medecine.tbl_medecine_ID = tbl_medecine.id WHERE tbl_patient.nextOfKinID = '$user_id'";
+    if (!($medecine_result = mysqli_query($db, $sql_medecine)))
     echo $db->error;
 ?>
 
@@ -48,7 +48,10 @@ if (!($medecine_result = mysqli_query($db, $sql_medecine)))
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">Patient ID</th>
+                    <th scope="col">fName</th>
+                    <th scope="col">lName</th>
+                    <th scope="col">Med ID</th>
                     <th scope="col">medDesc</th>
                     <th scope="col">schedule</th>
                     <th scope="col">Edit</th>
@@ -62,14 +65,14 @@ if (!($medecine_result = mysqli_query($db, $sql_medecine)))
                 echo "<tr>";
                 foreach ($row as $key => $value)
                 {
-                    if (!strcmp($key, "id"))
+                    if (!strcmp($key, "id") || !strcmp($key, "tbl_medecine_ID"))
                         echo '<th scope="row">' . $value .' </th>';
                     else
                         echo "<td>" . $value . "</td>";
                 }
                 ?>
-                <td><a href="edit.php?editMedecine=1&id=<?php echo $row['id'];?>&medDesc=<?php echo $row['medDesc']?>&schedule=<?php echo $row['schedule']?>">Edit</a></td>
-                <td><a href="edit.php?deleteMedecine=1&id=<?php echo $row['id'];?>">Delete</a></td>
+                <td><a href="edit.php?editMedecine=1&id=<?php echo $row['tbl_medecine_ID'];?>&medDesc=<?php echo $row['medDesc']?>&schedule=<?php echo $row['schedule']?>">Edit</a></td>
+                <td><a href="edit.php?deleteMedecine=1&id=<?php echo $row['tbl_medecine_ID'];?>">Delete</a></td>
                 <?php
                 echo "</tr>";
             }
