@@ -110,7 +110,6 @@ if ($_POST)
         $count = mysqli_num_rows($result);
         echo $row['hash_validation'] ;
         echo $row['id'];
-        die();
         if ($count == 1 && $row['hash_validation'] == 0) {
             $_SESSION['login_id'] = $row['id'];
             $_SESSION['login_user'] = $myFirstName . " " . $myLastName;

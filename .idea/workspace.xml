@@ -134,7 +134,7 @@
           <entry key="csv" value="25" />
           <entry key="dummy" value="18" />
           <entry key="html" value="77" />
-          <entry key="php" value="23195" />
+          <entry key="php" value="23198" />
           <entry key="sql" value="1" />
           <entry key="txt" value="80" />
         </counts>
@@ -144,7 +144,7 @@
           <entry key="CSS" value="12" />
           <entry key="CSV" value="25" />
           <entry key="HTML" value="92" />
-          <entry key="PHP" value="23155" />
+          <entry key="PHP" value="23158" />
           <entry key="PLAIN_TEXT" value="98" />
           <entry key="SQL" value="26" />
           <entry key="Scratch" value="15" />
@@ -190,11 +190,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/create_account.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="238" column="75" selection-start-line="238" selection-start-column="75" selection-end-line="238" selection-end-column="75" />
+            <state relative-caret-position="473">
+              <caret line="239" column="9" lean-forward="true" selection-start-line="239" selection-start-column="9" selection-end-line="239" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -223,11 +223,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="112" column="14" selection-start-line="112" selection-start-column="14" selection-end-line="112" selection-end-column="14" />
+            <state relative-caret-position="359">
+              <caret line="111" column="24" selection-start-line="111" selection-start-column="24" selection-end-line="111" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -356,10 +356,10 @@
         <option value="$PROJECT_DIR$/includes/importCSV/importCSVUser.php" />
         <option value="$PROJECT_DIR$/includes/createTable.php" />
         <option value="$PROJECT_DIR$/verify.php" />
-        <option value="$PROJECT_DIR$/login.php" />
         <option value="$PROJECT_DIR$/404.php" />
         <option value="$PROJECT_DIR$/success_registration.php" />
         <option value="$PROJECT_DIR$/create_account.php" />
+        <option value="$PROJECT_DIR$/login.php" />
       </list>
     </option>
   </component>
@@ -541,12 +541,12 @@
       <workItem from="1542666117715" duration="2108000" />
       <workItem from="1542794599755" duration="449000" />
       <workItem from="1543156755527" duration="17035000" />
-      <workItem from="1543281498822" duration="4304000" />
+      <workItem from="1543281498822" duration="4465000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110752000" />
+    <option name="totallyTimeSpent" value="110913000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -825,13 +825,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="112" column="14" selection-start-line="112" selection-start-column="14" selection-end-line="112" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/404.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -843,13 +836,6 @@
       </provider>
     </entry>
     <entry file="das://e5473a0e-8ecb-4169-bda1-f5a048a1b5b9/schema/test/table/tbl_patient_has_medecine">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://e5473a0e-8ecb-4169-bda1-f5a048a1b5b9/schema/test/table/tbl_user">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -868,8 +854,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/create_account.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="238" column="75" selection-start-line="238" selection-start-column="75" selection-end-line="238" selection-end-column="75" />
+        <state relative-caret-position="473">
+          <caret line="239" column="9" lean-forward="true" selection-start-line="239" selection-start-column="9" selection-end-line="239" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://e5473a0e-8ecb-4169-bda1-f5a048a1b5b9/schema/test/table/tbl_user">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="111" column="24" selection-start-line="111" selection-start-column="24" selection-end-line="111" selection-end-column="24" />
         </state>
       </provider>
     </entry>
