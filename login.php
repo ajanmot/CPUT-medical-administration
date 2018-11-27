@@ -101,22 +101,23 @@ if ($_POST)
     elemPassword.classList.add('is-invalid'); </script>";
     }
     else
-    {
-        echo "<h1> Password vide</h1>";
         $myPassword = md5($_POST['inputPassword']);
-    }
     if (!empty($myFirstName) && !empty($myLastName) && !empty($myEmail) && !empty($myPassword))
     {
-        $sql = "SELECT id, fName, lName, email FROM tbl_user WHERE fName='$myFirstName' and lName='$myLastName' and email='$myEmail' and password='$myPassword'";
+        $sql = "SELECT id, fName, lName, email, hash_validation FROM tbl_user WHERE fName='$myFirstName' and lName='$myLastName' and email='$myEmail' and password='$myPassword'";
         $result = mysqli_query($db,$sql);
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $count = mysqli_num_rows($result);
-        if ($count == 1) {
+        echo $row['hash_validation'] ;
+        echo $row['id'];
+        die();
+        if ($count == 1 && $row['hash_validation'] == 0) {
             $_SESSION['login_id'] = $row['id'];
             $_SESSION['login_user'] = $myFirstName . " " . $myLastName;
             header("Location: index.php");
         }
-        else {
+        else
+            {
             echo "<script>var elemPassword2 = document.getElementById('inputPassword');
     elemPassword2.classList.add('is-invalid'); </script>";
         }

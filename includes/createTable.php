@@ -42,14 +42,24 @@ if($val_item !== FALSE)
         echo "--->Error dropping table_item : " .mysqli_error($db) . "<br>";
 }
 
-$val_patient_has_mdecine = mysqli_query($db,'select 1 from `tbl_patient_has_mdecine` LIMIT 1');
+$val_patient_has_medecine = mysqli_query($db,'select 1 from `tbl_patient_has_medecine` LIMIT 1');
 
-if($val_patient_has_mdecine !== FALSE)
+if($val_patient_has_medecine !== FALSE)
 {
-    if (mysqli_query($db,'DROP TABLE tbl_patient_has_mdecine'))
-        echo "Table tbl_patient_has_mdecine has been droped <br>";
+    if (mysqli_query($db,'DROP TABLE tbl_patient_has_medecine'))
+        echo "Table tbl_patient_has_medecine has been droped <br>";
     else
-        echo "--->Error dropping table_patient_has_mdecine : " .mysqli_error($db) . "<br>";
+        echo "--->Error dropping table_patient_has_medecine : " .mysqli_error($db) . "<br>";
+}
+
+$val_patient_has_item = mysqli_query($db,'select 1 from `tbl_patient_has_item` LIMIT 1');
+
+if($val_patient_has_item !== FALSE)
+{
+    if (mysqli_query($db,'DROP TABLE tbl_patient_has_item'))
+        echo "Table tbl_patient_has_item has been droped <br>";
+    else
+        echo "--->Error dropping table_patient_has_item : " .mysqli_error($db) . "<br>";
 }
 
 $sql_user = "CREATE TABLE `tbl_user` (
@@ -62,6 +72,7 @@ $sql_user = "CREATE TABLE `tbl_user` (
 `email` varchar(32) NOT NULL,
 `cellNum` varchar(10) NOT NULL,
 `password` varchar(33) NOT NULL,
+`hash_validation` varchar(33),
 `userImage` text NOT NULL,
 `status` ENUM('user', 'admin', 'matron') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1";
@@ -181,9 +192,23 @@ if (mysqli_query($db, $sql_patient_has_medecine)) {
     echo "--->Error creating table: " . mysqli_error($db) . "<br>";
 }
 
-include('importCSVUser.php');
-include('importCSVPatient.php');
-include('importCSVMedecine.php');
-include('importCSVItem.php');
-include('importCSVPatientHasMedecine.php');
+$sql_patient_has_item = "CREATE TABLE `tbl_patient_has_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tbl_patient_ID` varchar(45) NOT NULL,
+  `tbl_item_ID` varchar(45) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+if (mysqli_query($db, $sql_patient_has_item)) {
+    echo "Structure of tbl_patient_has_item created successfully<br>";
+} else {
+    echo "--->Error creating table: " . mysqli_error($db) . "<br>";
+}
+
+include('importCSV/importCSVUser.php');
+include('importCSV/importCSVPatient.php');
+include('importCSV/importCSVMedecine.php');
+include('importCSV/importCSVItem.php');
+include('importCSV/importCSVPatientHasMedecine.php');
+include('importCSV/importCSVPatientHasItem.php');
 

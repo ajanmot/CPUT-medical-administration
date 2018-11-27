@@ -222,15 +222,20 @@ if ($_POST)
     else
     {
         $hash = md5($password);
+        $hash_validation = md5(rand(1, 1000));
         $default = "user";
         $path = "path";
-        $sqlInsert = "INSERT into tbl_user (fName,lName,adress1,adress2,postalCode,email,cellNum,password,userImage, status)
+
+        $sqlInsert = "INSERT INTO tbl_user (fName,lName,adress1,adress2,postalCode,email,cellNum,password,hash_validation,userImage, status)
         values ('" . $firstName . "','" . $lastName . "','" . $address . "',
-        '" . $address2 . "','". $postalCode ."','" . $email . "','". $cellNum . "','". $hash .
-            "','". $path ."','" . $default . "')";
+        '" . $address2 . "','". $postalCode ."','" . $email . "','". $cellNum . "','". $hash . "','". $hash_validation . "','". $path ."','" . $default . "')";
+
         if (mysqli_query($db, $sqlInsert))
         {
-            send_mail($email, "New account created", 'Your new account as been created ! <a href="http://localhost/medical_administration/login.php"> Click here </a> to login ! ');
+            send_mail($email, "New account created",
+                'Your new account as been created ! 
+                <a href="http://localhost/medical_administration/verify.php?firstName=' . $firstName . '&lastName='.  $lastName.'&email=' . $email . '&hash=' . $hash_validation .'"> Click here </a> to verify your account!
+                Once your account is validated you will be able to login on the site !');
             echo '<script> window.location.href = "success_registration.php"</script>';
         }
         else {

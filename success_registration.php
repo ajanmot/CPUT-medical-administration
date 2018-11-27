@@ -1,3 +1,16 @@
+<?php
+/*if (!$_GET || empty($_GET['hash']) || $_GET['hash'] = 0)
+    header("Location: 404.php");
+include("includes/dbConnexion.php");
+$user_id = $_GET['id'];
+$SQLRequest = "SELECT hash_validation FROM tbl_user WHERE id='$user_id'";
+$SQLResult = mysqli_query($db, $SQLRequest);
+while (($row = mysqli_fetch_array($SQLResult, MYSQLI_ASSOC)))
+    if ($row['hash_validation'] == $_GET['hash'])
+        break ;
+    if (!$row)
+        header("Location: 404.php");
+   */ ?>
 <!doctype html>
 <html lang="fr">
 <head>

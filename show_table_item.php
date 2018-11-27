@@ -31,11 +31,18 @@ include("includes/dbConnexion.php");
 </head>
 
 <?php
-$item_sql = "SELECT * FROM tbl_item";
-
-$item_result = mysqli_query($db, $item_sql);
-
+$user_id = $_SESSION['login_id'];
+$sql_status = "SELECT status FROM tbl_user WHERE id='$user_id'";
+$result_status = mysqli_query($db, $sql_status);
+$row = mysqli_fetch_array($result_status, MYSQLI_ASSOC);
+if ($row['status'] != 'user')
+    $sql_item = "SELECT * FROM tbl_item";
+else
+    $sql_item = "SELECT * FROM tbl_item WHERE id IN (SELECT tbl_item_ID FROM tbl_patient_has_item WHERE tbl_patient_ID IN (SELECT id FROM tbl_patient WHERE nextOfKinID='$user_id'))";
+if (!($item_result = mysqli_query($db, $sql_item)))
+    echo $db->error;
 ?>
+
 
 <div class="container h-100">
     <div class="row d-flex justify-content-center" style="margin-top: 200px;">

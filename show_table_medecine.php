@@ -38,13 +38,8 @@ if ($row['status'] != 'user')
     $sql_medecine = "SELECT * FROM tbl_medecine";
 else
     $sql_medecine = "SELECT * FROM tbl_medecine WHERE id IN (SELECT tbl_medecine_ID FROM tbl_patient_has_medecine WHERE tbl_patient_ID IN (SELECT id FROM tbl_patient WHERE nextOfKinID='$user_id'))";
-echo $sql_medecine;
 if (!($medecine_result = mysqli_query($db, $sql_medecine)))
-{
     echo $db->error;
-}
-
-
 ?>
 
 <div class="container h-100">

@@ -9,7 +9,7 @@
 
 function send_mail($to, $subject, $body)
 {
-    require "C:/xampp/htdocs/medical_administration/phpmailer/class.phpmailer.php";
+    require "C:/xampp/htdocs/medical_administration/includes/phpmailer/class.phpmailer.php";
 
     $mail = new PHPMailer(); // create a new object
     $mail->IsSMTP(); // enable SMTP
